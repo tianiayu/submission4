@@ -98,11 +98,35 @@ Mayoritas pengguna yang memberikan rating berada pada rentang usia 20–35 tahun
 
 
 ## Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
+Pada tahap ini, dilakukan beberapa proses data preparation untuk memastikan bahwa data yang digunakan bersih, konsisten, dan sesuai dengan kebutuhan model rekomendasi yang akan dibangun. Teknik-teknik yang digunakan dilakukan secara berurutan sesuai dengan notebook. Berikut penjelasan detailnya:
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+- Menghapus Kolom yang Tidak Diperlukan
+  
+Kolom Unnamed: 11 dan Unnamed: 12 adalah kolom kosong atau tidak memiliki informasi penting, kemungkinan besar berasal dari hasil ekspor file CSV. Kolom ini dihapus agar tidak mengganggu proses analisis dan pemodelan.
+
+- Menangani Nilai Kosong (Missing Values)
+
+  - Pada data packagetourism, nilai kosong diisi dengan string 'None' sebagai penanda tidak tersedia. Ini penting agar tidak terjadi error saat proses gabungan atau analisis berbasis teks.
+  - Untuk kolom Time_Minutes pada tourismwithid, digunakan nilai median karena tipe datanya numerik. Median dipilih untuk menghindari bias akibat nilai ekstrim (outlier) yang dapat terjadi jika menggunakan rata-rata (mean).
+
+- Menggabungkan Data Rating dan Data User
+
+Langkah ini bertujuan untuk memperkaya data rating dengan informasi pengguna yang relevan, seperti ID pengguna atau atribut lainnya jika ada.
+
+- Menggabungkan Data Rating dengan Informasi Tempat Wisata
+
+Data hasil penggabungan ini menjadi basis utama dalam proses pemodelan rekomendasi karena sudah mengandung informasi pengguna, tempat wisata, dan nilai rating.
+
+-  Membatasi Data ke Kota Yogyakarta
+
+Karena fokus penelitian adalah sistem rekomendasi wisata di Yogyakarta, maka data difilter agar hanya memuat entri wisata di kota tersebut. Ini juga membantu mengurangi kompleksitas dan ukuran data.
+
+- Menggabungkan Fitur Deskripsi dan Kategori Tempat Wisata
+
+Fitur combined_features dibuat untuk mendukung pendekatan Content-Based Filtering, di mana informasi tekstual tentang tempat wisata digunakan sebagai dasar dalam menghitung kemiripan antar tempat. Penggabungan deskripsi dan kategori akan memberikan representasi yang lebih kaya untuk tiap destinasi wisata.
+
+Tahapan-tahapan ini penting dilakukan untuk memastikan data dalam kondisi optimal sebelum digunakan dalam proses training model, baik untuk pendekatan Content-Based Filtering maupun Collaborative Filtering.
+
 
 ## Modeling
 Tahapan ini membahas mengenai model sisten rekomendasi yang Anda buat untuk menyelesaikan permasalahan. Sajikan top-N recommendation sebagai output.
