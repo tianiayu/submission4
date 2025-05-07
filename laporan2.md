@@ -71,8 +71,15 @@ Memuat data pengguna yang memberikan rating, termasuk lokasi dan usia. Jumlah da
   - Location; Kota asal atau domisili pengguna.
   - Age; Usia pengguna.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data beserta insight atau exploratory data analysis.
+Distribusi Kategori Tempat Wisata ![image](https://github.com/user-attachments/assets/475b309e-ced0-4f5f-b842-c91765d2ee7a) 
+Tempat hiburan dengan kategori alam dan budaya mendominasi, menunjukkan bahwa daya tarik utama di berbagai kota adalah wisata alam dan edukatif.
+
+Distribusi Rating Tempat Wisata ![image](https://github.com/user-attachments/assets/3e65a1a9-2cf0-4753-9072-ee3f934fa360)
+Sebagian besar tempat wisata memiliki rating tinggi (di atas 4.0), menandakan tingkat kepuasan pengunjung cukup baik.
+
+Distribusi Usia Pengguna ![image](https://github.com/user-attachments/assets/6d623129-a837-4fb9-946c-5cf5254339a1)
+Mayoritas pengguna yang memberikan rating berada pada rentang usia 20–35 tahun, sesuai dengan kelompok usia yang paling aktif berwisata.
+
 
 ## Data Preparation
 Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
