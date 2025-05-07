@@ -41,19 +41,19 @@ Dataset yang digunakan dalam proyek ini merupakan kumpulan data destinasi wisata
 
 ## Struktur Dataset dan Kondisi Data
 Dataset terdiri atas empat file utama berikut:
-- package_tourism.csv
+- package_tourism.csv:
 Berisi daftar paket wisata yang mencakup hingga lima destinasi per paket, lengkap dengan informasi kota. Jumlah data 100. Variabel-variabel pada package_tourism.csv adalah sebagai berikut:
   - Package; ID atau nama paket wisata.
   - City; Kota tempat paket wisata ditawarkan (Yogyakarta, Jakarta, Bandung, Semarang, Surabaya).
   - Place_Tourism1–5; Daftar tempat wisata yang termasuk dalam paket.
     
-- tourism_rating.csv
+- tourism_rating.csv:
 Berisi data rating atau ulasan pengguna terhadap tempat wisata. Jumlah data 437. Variabel-variabel pada tourism_rating.csv adalah sebagai berikut:
   - User_Id; ID unik pengguna.
   - Place_Id; ID unik tempat wisata yang diberi rating.
   - Place_Ratings; Skor penilaian (biasanya dalam skala 1–5).
 
-- tourism_with_id.csv
+- tourism_with_id.csv:
 Menyediakan informasi detail untuk setiap tempat wisata, seperti nama, kategori, lokasi, harga, dan estimasi waktu kunjungan. Jumlah data 437. Variabel-variabel pada tourism_with_id.csv adalah sebagai berikut:
   - Place_Id; ID unik dari tempat wisata.
   - Place_Name; Nama tempat wisata.
@@ -65,7 +65,7 @@ Menyediakan informasi detail untuk setiap tempat wisata, seperti nama, kategori,
   - Time_Minutes; Perkiraan durasi kunjungan (dalam menit).
   - Coordinate / Lat / Long; Lokasi geografis tempat wisata.
 
-- user.csv
+- user.csv:
 Memuat data pengguna yang memberikan rating, termasuk lokasi dan usia. Jumlah data 300. Variabel-variabel pada user.csv adalah sebagai berikut:
   - User_Id; ID unik pengguna.
   - Location; Kota asal atau domisili pengguna.
