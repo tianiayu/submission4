@@ -71,22 +71,27 @@ Memuat data pengguna yang memberikan rating, termasuk lokasi dan usia. Jumlah da
   - Location; Kota asal atau domisili pengguna.
   - Age; Usia pengguna.
 
+## EDA
 - Distribusi Tempat Wisata berdasarkan Kota
+
 ![image](https://github.com/user-attachments/assets/c00c5981-4f97-4b8f-90cd-7adc26f5ee3a)
 
 Kota Yogyakarta memiliki jumlah tempat wisata terbanyak dalam dataset, diikuti oleh Jakarta dan Bandung.
 
 - Distribusi Kategori Tempat Wisata
+
 ![image](https://github.com/user-attachments/assets/80b267ca-d488-40b7-b7fb-5f71af85b9ab)
 
 Tempat hiburan dengan kategori alam dan budaya mendominasi, menunjukkan bahwa daya tarik utama di berbagai kota adalah wisata alam dan edukatif.
 
 - Distribusi Rating Tempat Wisata
+
 ![image](https://github.com/user-attachments/assets/50bf45c1-031d-4fe3-ae16-624170cfe3c8)
 
 Sebagian besar tempat wisata memiliki rating tinggi di atas 4.0, menandakan tingkat kepuasan pengunjung cukup baik.
 
 - Distribusi Usia Pengguna
+
 ![image](https://github.com/user-attachments/assets/207b9f05-722b-44fa-a33a-220e3134536e)
 
 Mayoritas pengguna yang memberikan rating berada pada rentang usia 20–35 tahun, sesuai dengan kelompok usia yang paling aktif berwisata.
