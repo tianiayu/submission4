@@ -39,7 +39,7 @@ Dalam era digital, pariwisata tidak lagi hanya mengandalkan brosur atau rekomend
 ## Data Understanding
 Dataset yang digunakan dalam proyek ini merupakan kumpulan data destinasi wisata di beberapa kota besar di Indonesia, yaitu Yogyakarta, Jakarta, Bandung, Semarang, dan Surabaya. Data mencakup informasi tempat wisata, penilaian dari pengguna, komposisi paket wisata, dan profil pengguna. Dataset ini bersumber dari platform publik dan dapat diakses melalui: [Indonesia Tourism Destination Dataset – Kaggle.](https://www.kaggle.com/datasets/aprabowo/indonesia-tourism-destination)
 
-## Struktur Dataset dan Kondisi Data
+### Struktur Dataset dan Kondisi Data
 Dataset terdiri atas empat file utama berikut:
 - package_tourism.csv:
 Berisi daftar paket wisata yang mencakup hingga lima destinasi per paket, lengkap dengan informasi kota. Jumlah data 100. Variabel-variabel pada package_tourism.csv adalah sebagai berikut:
@@ -71,7 +71,7 @@ Memuat data pengguna yang memberikan rating, termasuk lokasi dan usia. Jumlah da
   - Location; Kota asal atau domisili pengguna.
   - Age; Usia pengguna.
 
-## EDA
+### EDA
 - Distribusi Tempat Wisata berdasarkan Kota
 
 ![image](https://github.com/user-attachments/assets/c00c5981-4f97-4b8f-90cd-7adc26f5ee3a)
