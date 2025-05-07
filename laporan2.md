@@ -37,14 +37,39 @@ Dalam era digital, pariwisata tidak lagi hanya mengandalkan brosur atau rekomend
       
 
 ## Data Understanding
-Paragraf awal bagian ini menjelaskan informasi mengenai jumlah data, kondisi data, dan informasi mengenai data yang digunakan. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
+Dataset yang digunakan dalam proyek ini merupakan kumpulan data destinasi wisata di beberapa kota besar di Indonesia, yaitu Yogyakarta, Jakarta, Bandung, Semarang, dan Surabaya. Data mencakup informasi tempat wisata, penilaian dari pengguna, komposisi paket wisata, dan profil pengguna. Dataset ini bersumber dari platform publik dan dapat diakses melalui: [Indonesia Tourism Destination Dataset – Kaggle.](https://www.kaggle.com/datasets/aprabowo/indonesia-tourism-destination)
 
-Selanjutnya, uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
+## Struktur Dataset dan Kondisi Data
+Dataset terdiri atas empat file utama berikut:
+- package_tourism.csv
+Berisi daftar paket wisata yang mencakup hingga lima destinasi per paket, lengkap dengan informasi kota. Jumlah data 100. Variabel-variabel pada package_tourism.csv adalah sebagai berikut:
+  - Package; ID atau nama paket wisata.
+  - City; Kota tempat paket wisata ditawarkan (Yogyakarta, Jakarta, Bandung, Semarang, Surabaya).
+  - Place_Tourism1–5; Daftar tempat wisata yang termasuk dalam paket.
+    
+- tourism_rating.csv
+Berisi data rating atau ulasan pengguna terhadap tempat wisata. Jumlah data 437. Variabel-variabel pada tourism_rating.csv adalah sebagai berikut:
+  - User_Id; ID unik pengguna.
+  - Place_Id; ID unik tempat wisata yang diberi rating.
+  - Place_Ratings; Skor penilaian (biasanya dalam skala 1–5).
 
-Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
-- accepts : merupakan jenis pembayaran yang diterima pada restoran tertentu.
-- cuisine : merupakan jenis masakan yang disajikan pada restoran.
-- dst
+- tourism_with_id.csv
+Menyediakan informasi detail untuk setiap tempat wisata, seperti nama, kategori, lokasi, harga, dan estimasi waktu kunjungan. Jumlah data 437. Variabel-variabel pada tourism_with_id.csv adalah sebagai berikut:
+  - Place_Id; ID unik dari tempat wisata.
+  - Place_Name; Nama tempat wisata.
+  - Description; Deskripsi tempat wisata.
+  - Category; Jenis/kategori wisata (alam, budaya, hiburan, kuliner, dll).
+  - City; Kota tempat wisata berada.
+  - Price; Biaya untuk mengunjungi tempat tersebut.
+  - Rating; Rata-rata rating yang diterima tempat wisata.
+  - Time_Minutes; Perkiraan durasi kunjungan (dalam menit).
+  - Coordinate / Lat / Long; Lokasi geografis tempat wisata.
+
+- user.csv
+Memuat data pengguna yang memberikan rating, termasuk lokasi dan usia. Jumlah data 300. Variabel-variabel pada user.csv adalah sebagai berikut:
+  - User_Id; ID unik pengguna.
+  - Location; Kota asal atau domisili pengguna.
+  - Age; Usia pengguna.
 
 **Rubrik/Kriteria Tambahan (Opsional)**:
 - Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data beserta insight atau exploratory data analysis.
