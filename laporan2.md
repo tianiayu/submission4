@@ -15,33 +15,26 @@ Untuk mendukung pengembangan sistem ini, berikut referensi yang relevan dan dapa
 - **Burke, R.** (2002). Hybrid recommender systems: Survey and experiments. User Modeling and User-Adapted Interaction, 12(4), 331–370.
 
 
-
 ## Business Understanding
 
-Pada bagian ini, Anda perlu menjelaskan proses klarifikasi masalah.
-
-Bagian laporan ini mencakup:
+Dalam era digital, pariwisata tidak lagi hanya mengandalkan brosur atau rekomendasi dari mulut ke mulut. Pengambilan keputusan wisata kini bergeser ke arah platform online yang dapat menyarankan destinasi secara personal berdasarkan data dan preferensi pengguna. Kota Yogyakarta sebagai salah satu destinasi wisata unggulan di Indonesia memiliki banyak tempat menarik, tetapi pengguna sering kali kesulitan memilih destinasi yang sesuai dengan minat dan waktu mereka. Oleh karena itu, sistem rekomendasi menjadi solusi penting untuk membantu wisatawan dalam menentukan pilihan terbaik.
 
 ### Problem Statements
 
-Menjelaskan pernyataan masalah:
 - Bagaimana cara membuat sistem rekomendasi destinasi wisata yang dapat menyarankan tempat berdasarkan rating dan ulasan pengguna?
 - Bagaimana cara mengoptimalkan data tempat wisata, seperti kategori, harga, dan waktu, guna menyusun rekomendasi yang lebih sesuai dengan preferensi pengguna?
 
 ### Goals
 
-Menjelaskan tujuan proyek yang menjawab pernyataan masalah:
-- Jawaban pernyataan masalah 1
-- Jawaban pernyataan masalah 2
-- Jawaban pernyataan masalah n
+- Mengembangkan sistem rekomendasi destinasi wisata berbasis Collaborative Filtering.
+- Menerapkan pendekatan Content-based Filtering untuk menghasilkan rekomendasi berdasarkan atribut tempat wisata.
 
-Semua poin di atas harus diuraikan dengan jelas. Anda bebas menuliskan berapa pernyataan masalah dan juga goals yang diinginkan.
-
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Menambahkan bagian “Solution Approach” yang menguraikan cara untuk meraih goals. Bagian ini dibuat dengan ketentuan sebagai berikut: 
-
-    ### Solution statements
-    - Mengajukan 2 atau lebih solution approach (algoritma atau pendekatan sistem rekomendasi).
+    ### Solution Approach
+    - Content-Based Filtering
+      Pendekatan ini merekomendasikan destinasi wisata berdasarkan kesamaan fitur antar tempat wisata yang pernah disukai oleh pengguna. Sistem akan menganalisis atribut tempat wisata seperti kategori (alam, budaya, hiburan), harga, lama waktu kunjungan, serta deskripsi tempat untuk menilai kemiripan antar destinasi.
+    - Collaborative Filtering
+      Collaborative Filtering merekomendasikan tempat wisata berdasarkan interaksi atau rating yang diberikan oleh pengguna lain dengan preferensi serupa. Model ini fokus pada hubungan antar pengguna dan tempat wisata yang mereka nilai.
+      
 
 ## Data Understanding
 Paragraf awal bagian ini menjelaskan informasi mengenai jumlah data, kondisi data, dan informasi mengenai data yang digunakan. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
