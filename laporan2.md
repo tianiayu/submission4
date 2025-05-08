@@ -129,11 +129,50 @@ Tahapan-tahapan ini penting dilakukan untuk memastikan data dalam kondisi optima
 
 
 ## Modeling
-Tahapan ini membahas mengenai model sisten rekomendasi yang Anda buat untuk menyelesaikan permasalahan. Sajikan top-N recommendation sebagai output.
+Tahapan ini membahas mengenai model sistem rekomendasi yang dikembangkan untuk membantu pengguna menemukan tempat wisata yang sesuai dengan preferensinya. Dalam proyek ini, dua pendekatan berbeda digunakan untuk memberikan Top-N Recommendation, yaitu:
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menyajikan dua solusi rekomendasi dengan algoritma yang berbeda.
-- Menjelaskan kelebihan dan kekurangan dari solusi/pendekatan yang dipilih.
+1. Content-Based Filtering
+
+Pendekatan pertama menggunakan Content-Based Filtering, yang merekomendasikan tempat wisata berdasarkan kemiripan konten dengan tempat yang pernah disukai atau dicari oleh pengguna.
+- Langkah-langkah:
+  - Fitur teks seperti Category, City, dan deskripsi lainnya dikombinasikan menjadi satu kolom combined_features.
+  - Dilakukan proses TF-IDF vectorization untuk mengubah teks menjadi representasi numerik.
+  - Cosine similarity digunakan untuk menghitung kemiripan antar tempat wisata.
+  - Output: sistem akan memberikan rekomendasi tempat yang mirip dengan tempat yang dimasukkan sebagai referensi.
+
+- Contoh Output:
+Rekomendasi untuk tempat: "Nol Kilometer Jl.Malioboro"
+![image](https://github.com/user-attachments/assets/20567eea-4cd9-440d-b3be-05f70a2643a5)
+
+Pendekatan ini cocok ketika belum ada data rating pengguna, dan dapat berjalan baik hanya dengan informasi konten.
+
+2. Collaborative Filtering
+
+Pendekatan kedua menggunakan Collaborative Filtering berbasis model, di mana sistem belajar dari pola rating pengguna terhadap berbagai tempat wisata. Model yang digunakan dapat berupa deep learning atau matrix factorization.
+- Langkah-langkah:
+  - Data Preprocessing:
+    - Setiap User_Id dan Place_Id di-encode ke dalam indeks numerik agar dapat digunakan dalam model embedding.
+    - Data rating pengguna dinormalisasi ke rentang [0,1] karena model menggunakan fungsi aktivasi sigmoid pada output.
+      
+  - Model Arsitektur:
+    - Terdiri dari dua embedding layers masing-masing untuk pengguna dan tempat wisata.
+    - Representasi vektor dari pengguna dan tempat dikombinasikan menggunakan dot product.
+    - Output akhir diproses melalui fungsi sigmoid untuk mengestimasi rating sebagai probabilitas kesukaan.
+      
+  - Training:
+    - Data dipisah menjadi training dan testing (80:20).
+    - Model dilatih menggunakan binary crossentropy dan dioptimasi dengan Adam Optimizer.
+    - Performa dilihat dari metrik Root Mean Squared Error (RMSE) pada data training dan validasi.
+ 
+- Visualisasi Proses Training:
+
+![image](https://github.com/user-attachments/assets/5406214d-1e56-48df-b3d2-3daf7cb599f5)
+
+
+- Contoh Output Rekomendasi:
+![image](https://github.com/user-attachments/assets/216dab9f-039b-4089-8215-6f83f515daeb)
+
+
 
 ## Evaluation
 Pada bagian ini Anda perlu menyebutkan metrik evaluasi yang digunakan. Kemudian, jelaskan hasil proyek berdasarkan metrik evaluasi tersebut.
