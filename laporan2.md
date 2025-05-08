@@ -140,8 +140,8 @@ Pendekatan pertama menggunakan Content-Based Filtering, yang merekomendasikan te
   - Cosine similarity digunakan untuk menghitung kemiripan antar tempat wisata.
   - Output: sistem akan memberikan rekomendasi tempat yang mirip dengan tempat yang dimasukkan sebagai referensi.
 
-- Contoh Output:
-Rekomendasi untuk tempat: "Nol Kilometer Jl.Malioboro"
+- Output Rekomendasi:
+  
 ![image](https://github.com/user-attachments/assets/20567eea-4cd9-440d-b3be-05f70a2643a5)
 
 Pendekatan ini cocok ketika belum ada data rating pengguna, dan dapat berjalan baik hanya dengan informasi konten.
@@ -164,26 +164,51 @@ Pendekatan kedua menggunakan Collaborative Filtering berbasis model, di mana sis
     - Model dilatih menggunakan binary crossentropy dan dioptimasi dengan Adam Optimizer.
     - Performa dilihat dari metrik Root Mean Squared Error (RMSE) pada data training dan validasi.
  
-- Visualisasi Proses Training:
+- Proses Training:
 
-![image](https://github.com/user-attachments/assets/5406214d-1e56-48df-b3d2-3daf7cb599f5)
+![image](https://github.com/user-attachments/assets/45672969-b09c-42c3-8af3-c7a79ff57546)
 
 
-- Contoh Output Rekomendasi:
+- Output Rekomendasi:
 ![image](https://github.com/user-attachments/assets/216dab9f-039b-4089-8215-6f83f515daeb)
 
 
 
 ## Evaluation
-Pada bagian ini Anda perlu menyebutkan metrik evaluasi yang digunakan. Kemudian, jelaskan hasil proyek berdasarkan metrik evaluasi tersebut.
+Evaluasi dilakukan untuk menilai seberapa baik sistem rekomendasi bekerja dalam memprediksi tempat wisata yang relevan bagi pengguna. Karena proyek ini melibatkan dua pendekatan berbeda yaitu, Content-Based Filtering dan Collaborative Filtering berbasis Neural Network.
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+1. Evaluasi Model Content-Based Filtering
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+Untuk model berbasis konten, tidak dilakukan evaluasi kuantitatif seperti RMSE karena model ini tidak memprediksi rating, melainkan menghitung kemiripan antar item. Cosine similarity digunakan untuk mengukur tingkat kemiripan antara dua vektor fitur tempat wisata. Nilainya berkisar antara 0 (tidak mirip) hingga 1 (sangat mirip).
 
-**---Ini adalah bagian akhir laporan---**
+- Formula:
 
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
+![image](https://github.com/user-attachments/assets/6658cd60-2c1a-4bed-af39-7039a3b6c872)
+
+Model ini dinilai baik apabila rekomendasi yang diberikan relevan secara tematik dengan tempat awal yang dipilih oleh pengguna. Evaluasi dilakukan secara kualitatif berdasarkan hasil rekomendasi yang terlihat konsisten, seperti:
+    - Input: "Nol Kilometer Jl.Malioboro"
+    - Output: Tempat wisata dengan karakteristik mirip seperti pusat keramaian, sejarah, dan wisata belanja.
+
+2. Evaluasi Model Collaborative Filtering (Neural Network)
+
+Menggunakan metrik Root Mean Squared Error (RMSE) untuk mengukur selisih rata-rata kuadrat antara rating sebenarnya dan rating yang diprediksi oleh model. Semakin kecil nilai RMSE, semakin akurat prediksi sistem.
+- Formula:
+
+![image](https://github.com/user-attachments/assets/4de91d30-76ee-4aad-bccc-a756151691e3)
+
+- Hasil dari grafik RMSE selama proses pelatihan:
+  - RMSE Training menunjukkan bahwa model mampu mempelajari pola dari data dengan cukup baik.
+  - RMSE Validation tetap stabil dan tidak mengalami overfitting, menunjukkan model dapat digeneralisasi ke data baru.
+
+    
+![image](https://github.com/user-attachments/assets/5406214d-1e56-48df-b3d2-3daf7cb599f5)
+
+Berdasarkan metrik RMSE, hasil pelatihan model menunjukkan performa yang cukup baik, dengan nilai RMSE yang rendah pada data training dan validasi. RMSE yang kecil menunjukkan bahwa model dapat memprediksi rating pengguna dengan akurasi yang cukup tinggi, artinya rekomendasi yang diberikan berdasarkan rating yang diprediksi relatif sesuai dengan preferensi pengguna. Grafik pelatihan yang menunjukkan konvergensi RMSE selama proses pelatihan mengindikasikan bahwa model tidak mengalami overfitting dan dapat digeneralisasi dengan baik ke data yang tidak terlihat sebelumnya.
+ 
+3. Kesimpulan Evaluasi
+
+- Content-Based Filtering adalah solusi yang efektif untuk mengatasi cold-start problem, memberikan rekomendasi yang relevan berdasarkan kesamaan konten, tetapi cenderung terbatas dalam keragaman rekomendasi dan tidak memperhitungkan preferensi individu pengguna.
+
+- Collaborative Filtering berbasis Neural Network memberikan rekomendasi yang lebih personal dan lebih akurat ketika ada cukup data interaksi pengguna, tetapi menghadapi cold-start problem yang lebih besar, dan memerlukan lebih banyak sumber daya komputasi.
+
+Sebagai hasil akhir, pendekatan hybrid yang menggabungkan kedua metode ini bisa menjadi solusi yang sangat efektif dalam memberikan rekomendasi yang lebih kaya dan lebih personal kepada pengguna.
