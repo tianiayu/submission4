@@ -37,39 +37,65 @@ Dalam era digital, pariwisata tidak lagi hanya mengandalkan brosur atau rekomend
       
 
 ## Data Understanding
-Dataset yang digunakan dalam proyek ini merupakan kumpulan data destinasi wisata di beberapa kota besar di Indonesia, yaitu Yogyakarta, Jakarta, Bandung, Semarang, dan Surabaya. Data mencakup informasi tempat wisata, penilaian dari pengguna, komposisi paket wisata, dan profil pengguna. Dataset ini bersumber dari platform publik dan dapat diakses melalui: [Indonesia Tourism Destination Dataset – Kaggle.](https://www.kaggle.com/datasets/aprabowo/indonesia-tourism-destination)
+Dataset yang digunakan dalam proyek ini merupakan kumpulan data destinasi wisata dari beberapa kota besar di Indonesia, yaitu Yogyakarta, Jakarta, Bandung, Semarang, dan Surabaya. Dataset ini mencakup informasi tentang tempat wisata, penilaian dari pengguna, komposisi paket wisata, serta profil pengguna. Data bersumber dari platform publik dan dapat diakses melalui:[Indonesia Tourism Destination Dataset – Kaggle.](https://www.kaggle.com/datasets/aprabowo/indonesia-tourism-destination)
 
 ### Struktur Dataset dan Kondisi Data
-Dataset terdiri atas empat file utama berikut:
-- package_tourism.csv:
-Berisi daftar paket wisata yang mencakup hingga lima destinasi per paket, lengkap dengan informasi kota. Jumlah data 100. Variabel-variabel pada package_tourism.csv adalah sebagai berikut:
-  - Package; ID atau nama paket wisata.
-  - City; Kota tempat paket wisata ditawarkan (Yogyakarta, Jakarta, Bandung, Semarang, Surabaya).
-  - Place_Tourism1–5; Daftar tempat wisata yang termasuk dalam paket.
+Dataset terdiri atas empat file utama, yaitu:
+1.  package_tourism.csv:
+- Jumlah data 100 baris × 7 kolom. Dataset ini mencakup informasi tentang paket-paket wisata yang berisi kombinasi tempat wisata dalam satu kota.
+- Variabel-variabel pada package_tourism.csv adalah sebagai berikut:
+  - Package: ID atau nama dari paket wisata.
+  - City: Kota tempat paket wisata ditawarkan. Hanya mencakup lima kota: Yogyakarta, Jakarta, Bandung, Semarang, Surabaya.
+  - Place_Tourism1: Tempat wisata pertama dalam paket. Kolom ini selalu terisi.
+  - Place_Tourism2: Tempat wisata kedua dalam paket.
+  - Place_Tourism3: Tempat wisata ketiga dalam paket.
+  - Place_Tourism4: Tempat wisata keempat dalam paket.
+  - Place_Tourism5: Tempat wisata kelima dalam paket.
+- Kondisi Data:
+  - Kolom Place_Tourism3, Place_Tourism4, dan Place_Tourism5 mengandung missing values karena tidak semua paket terdiri dari lima tempat wisata.
+  - Tidak ditemukan duplikat.
     
-- tourism_rating.csv:
-Berisi data rating atau ulasan pengguna terhadap tempat wisata. Jumlah data 437. Variabel-variabel pada tourism_rating.csv adalah sebagai berikut:
-  - User_Id; ID unik pengguna.
-  - Place_Id; ID unik tempat wisata yang diberi rating.
-  - Place_Ratings; Skor penilaian (biasanya dalam skala 1–5).
+2. tourism_rating.csv:
+- Jumlah data 437 baris × 3 kolom. Dataset ini mencatat penilaian pengguna terhadap tempat wisata tertentu.
+- Variabel-variabel pada tourism_rating.csv adalah sebagai berikut:
+  - User_Id: ID unik pengguna.
+  - Place_Id: ID unik dari tempat wisata yang diberi rating.
+  - Place_Ratings: Skor rating yang diberikan (dalam skala 1–5).
+- Kondisi Data:
+  - Tidak ditemukan missing values.
+  - Terdapat kemungkinan duplikat entri (pengguna yang memberikan penilaian lebih dari satu kali ke tempat yang sama).
 
-- tourism_with_id.csv:
-Menyediakan informasi detail untuk setiap tempat wisata, seperti nama, kategori, lokasi, harga, dan estimasi waktu kunjungan. Jumlah data 437. Variabel-variabel pada tourism_with_id.csv adalah sebagai berikut:
-  - Place_Id; ID unik dari tempat wisata.
-  - Place_Name; Nama tempat wisata.
-  - Description; Deskripsi tempat wisata.
-  - Category; Jenis/kategori wisata (alam, budaya, hiburan, kuliner, dll).
-  - City; Kota tempat wisata berada.
-  - Price; Biaya untuk mengunjungi tempat tersebut.
-  - Rating; Rata-rata rating yang diterima tempat wisata.
-  - Time_Minutes; Perkiraan durasi kunjungan (dalam menit).
-  - Coordinate / Lat / Long; Lokasi geografis tempat wisata.
+3. tourism_with_id.csv:
+- Jumlah data 437 baris × 13 kolom. Dataset ini berisi informasi rinci tentang tempat-tempat wisata yang terdapat di kota-kota dalam cakupan data.
+- Variabel-variabel pada tourism_with_id.csv adalah sebagai berikut:
+  - Place_Id: ID unik dari tempat wisata.
+  - Place_Name: Nama tempat wisata.
+  - Description: Deskripsi singkat tentang tempat wisata, biasanya berupa ringkasan karakteristik, keunikan, atau aktivitas yang bisa dilakukan.
+  - Category: Jenis atau kategori wisata, misalnya alam, budaya, hiburan, kuliner, dll.
+  - City: Kota tempat wisata tersebut berada.
+  - Price: Biaya atau tarif masuk ke tempat wisata (dalam satuan tidak disebutkan, kemungkinan dalam Rupiah).
+  - Rating: Rata-rata rating atau penilaian dari pengguna (dalam skala 1–5).
+  - Time_Minutes: Estimasi waktu kunjungan (dalam satuan menit). Kolom ini memiliki banyak nilai missing (hanya 205 dari 437 entri yang terisi).
+  - Coordinate: Lokasi geografis tempat wisata dalam format string gabungan latitude,longitude.
+  - Lat: Latitude dari tempat wisata dalam format desimal.
+  - Long: Longitude dari tempat wisata dalam format desimal.
+  - Unnamed: 11: Kolom kosong sepenuhnya, seluruh nilainya missing (null). Kemungkinan merupakan kolom sisa dari proses ekspor.
+  - Unnamed: 12: Kolom berisi angka yang tidak diberi label. Belum jelas maknanya, namun semua nilainya terisi (437 non-null). Nilai-nilainya berupa integer, dan perlu eksplorasi lebih lanjut untuk memahami maknanya.
+- Kondisi Data:
+  - Kolom Time_Minutes memiliki missing values sebanyak 232 entri dari 437.
+  - Kolom Unnamed: 11 kosong seluruhnya, bisa dihapus saat praproses.
+  - Kolom Unnamed: 12 tidak diketahui fungsinya dan membutuhkan pemeriksaan lebih lanjut.
+  - Tidak ditemukan duplikat.
 
-- user.csv:
-Memuat data pengguna yang memberikan rating, termasuk lokasi dan usia. Jumlah data 300. Variabel-variabel pada user.csv adalah sebagai berikut:
-  - User_Id; ID unik pengguna.
-  - Location; Kota asal atau domisili pengguna.
-  - Age; Usia pengguna.
+4. user.csv:
+- Jumlah data 300 baris × 3 kolom. Dataset ini berisi informasi dasar tentang pengguna yang memberikan penilaian pada tempat wisata.
+- Variabel-variabel pada user.csv adalah sebagai berikut:
+  - User_Id: ID unik pengguna.
+  - Location: Kota tempat tinggal pengguna.
+  - Age: Usia pengguna.
+- Kondisi Data:
+  - Tidak ditemukan missing values eksplisit, tetapi nilai Age mengandung beberapa nilai ekstrem.
+  - Tidak ditemukan duplikat.
 
 ### EDA
 - Distribusi Tempat Wisata berdasarkan Kota
