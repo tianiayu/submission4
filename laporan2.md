@@ -124,71 +124,121 @@ Mayoritas pengguna yang memberikan rating berada pada rentang usia 20–35 tahun
 
 
 ## Data Preparation
-Pada tahap ini, dilakukan beberapa proses data preparation untuk memastikan bahwa data yang digunakan bersih, konsisten, dan sesuai dengan kebutuhan model rekomendasi yang akan dibangun. Teknik-teknik yang digunakan dilakukan secara berurutan sesuai dengan notebook. Berikut penjelasan detailnya:
+Pada tahap ini dilakukan serangkaian proses untuk mempersiapkan data agar siap digunakan dalam pembangunan model sistem rekomendasi. Proses dilakukan secara bertahap dan sistematis agar data bersih, relevan, dan terstruktur untuk dua pendekatan yang digunakan yaitu, Content-Based Filtering dan Collaborative Filtering. Berikut adalah tahapan yang dilakukan:
 
-- Menghapus Kolom yang Tidak Diperlukan
-  
-Kolom Unnamed: 11 dan Unnamed: 12 adalah kolom kosong atau tidak memiliki informasi penting, kemungkinan besar berasal dari hasil ekspor file CSV. Kolom ini dihapus agar tidak mengganggu proses analisis dan pemodelan.
+1. Menghapus Kolom yang Tidak Diperlukan
+  - Kolom Unnamed: 11 dan Unnamed: 12 adalah kolom kosong atau tidak memiliki informasi penting, kemungkinan besar berasal dari hasil ekspor file CSV. Kolom ini dihapus agar tidak mengganggu proses analisis dan pemodelan.
 
-- Menangani Nilai Kosong (Missing Values)
+2. Menangani Nilai Kosong (Missing Values)
+  - Pada package_tourism.csv, kolom Place_Tourism3, Place_Tourism4, dan Place_Tourism5 yang memiliki nilai kosong diisi dengan string 'None'. Ini bertujuan untuk menjaga konsistensi format teks saat digabungkan atau diproses lebih lanjut.
+  - Pada tourism_with_id.csv, kolom Time_Minutes memiliki banyak nilai kosong. Nilai-nilai ini diisi menggunakan nilai median dari kolom tersebut. Pemilihan median menghindari pengaruh outlier, yang bisa terjadi jika menggunakan mean.
 
-  - Pada data packagetourism, nilai kosong diisi dengan string 'None' sebagai penanda tidak tersedia. Ini penting agar tidak terjadi error saat proses gabungan atau analisis berbasis teks.
-  - Untuk kolom Time_Minutes pada tourismwithid, digunakan nilai median karena tipe datanya numerik. Median dipilih untuk menghindari bias akibat nilai ekstrim (outlier) yang dapat terjadi jika menggunakan rata-rata (mean).
+3. Menggabungkan Data Rating dan Data User
+  - Dataset tourism_rating.csv digabungkan dengan user.csv menggunakan kolom User_Id.
+  - Hasil penggabungan ini memperkaya informasi rating dengan atribut pengguna, seperti lokasi dan usia, yang berpotensi digunakan dalam segmentasi atau analisis lanjutan..
 
-- Menggabungkan Data Rating dan Data User
+4. Menggabungkan Data Rating dengan Informasi Tempat Wisata
+  - Dataset hasil langkah sebelumnya kemudian digabungkan dengan tourism_with_id.csv melalui Place_Id.
+  - Hasil akhir adalah data yang telah berisi informasi pengguna, tempat wisata, dan skor penilaian, serta fitur-fitur deskriptif tempat wisata (nama, kategori, harga, waktu, lokasi, dll).
 
-Langkah ini bertujuan untuk memperkaya data rating dengan informasi pengguna yang relevan, seperti ID pengguna atau atribut lainnya jika ada.
+5.  Menyaring Data Berdasarkan Kota Yogyakarta
+  - Karena fokus penelitian adalah membangun sistem rekomendasi wisata khusus di Kota Yogyakarta, seluruh dataset difilter agar hanya mencakup entri wisata dengan City = Yogyakarta.
+  - Penyaringan ini juga membantu mengurangi kompleksitas data dan memastikan model berfokus pada konteks geografis yang spesifik.
 
-- Menggabungkan Data Rating dengan Informasi Tempat Wisata
+6. Membuat Fitur combined_features untuk Content-Based Filtering
+  - Untuk pendekatan Content-Based Filtering, dibuat fitur baru bernama combined_features dengan cara menggabungkan kolom Description dan Category.
+  - Penggabungan ini bertujuan untuk memperkaya informasi tekstual mengenai tempat wisata agar bisa digunakan dalam analisis kemiripan antar destinasi.
 
-Data hasil penggabungan ini menjadi basis utama dalam proses pemodelan rekomendasi karena sudah mengandung informasi pengguna, tempat wisata, dan nilai rating.
+7. Ekstraksi Fitur dengan TF-IDF Vectorization
+  - Setelah combined_features disiapkan, dilakukan transformasi teks menggunakan teknik TF-IDF (Term Frequency - Inverse Document Frequency).
+  - Proses ini mengubah data teks menjadi matriks numerik yang mencerminkan pentingnya setiap kata dalam konteks seluruh dokumen (tempat wisata).
+  - Hasilnya digunakan untuk menghitung similarity score antar tempat wisata berdasarkan konten deskriptifnya.
 
--  Membatasi Data ke Kota Yogyakarta
+8. Persiapan Data untuk Collaborative Filtering
+  - Untuk pendekatan Collaborative Filtering, data disusun menjadi user-item matrix dengan:
+    - Baris mewakili User_Id
+    - Kolom mewakili Place_Id
+    - Nilai mewakili Place_Ratings
+  - Matriks ini menjadi dasar bagi algoritma untuk mengidentifikasi pola preferensi antar pengguna.
+  - Jika terdapat nilai kosong dalam matriks, ini merepresentasikan tempat yang belum diberi rating oleh pengguna, dan akan diisi atau diprediksi oleh model rekomendasi.
 
-Karena fokus penelitian adalah sistem rekomendasi wisata di Yogyakarta, maka data difilter agar hanya memuat entri wisata di kota tersebut. Ini juga membantu mengurangi kompleksitas dan ukuran data.
+9. Mapping ID Pengguna dan Tempat Wisata ke Format Numerik
+  - Karena model pembelajaran mesin membutuhkan input numerik, dilakukan pemetaan (encoding) terhadap ID pengguna (User_Id) dan ID tempat wisata (Place_Id) ke indeks numerik:
+    - user2user_encoded: memetakan setiap User_Id ke integer unik
+    - place2place_encoded: memetakan setiap Place_Id ke integer unik
+  - Hasil pemetaan ini digunakan untuk membuat dua kolom baru:
+    - user: hasil encode dari User_Id
+    - place: hasil encode dari Place_Id
+   
+10. Menyusun Data Training
+  - Fitur input X terdiri dari pasangan (user, place)
+  - Label target y adalah nilai Place_Ratings, yang dinormalisasi ke rentang 0–1 karena fungsi aktivasi output yang digunakan adalah sigmoid, sehingga:
+![image](https://github.com/user-attachments/assets/8dba9046-9dbe-4427-ad83-2e9b954ca958)
 
-- Menggabungkan Fitur Deskripsi dan Kategori Tempat Wisata
+11. Membagi Data ke dalam Train dan Test Set
+  - Dataset dibagi ke dalam data pelatihan dan data pengujian dengan rasio 80:20 menggunakan train_test_split dari Scikit-learn.
+![image](https://github.com/user-attachments/assets/1494479d-4bf9-46a6-9081-60cc33b34f39)
 
-Fitur combined_features dibuat untuk mendukung pendekatan Content-Based Filtering, di mana informasi tekstual tentang tempat wisata digunakan sebagai dasar dalam menghitung kemiripan antar tempat. Penggabungan deskripsi dan kategori akan memberikan representasi yang lebih kaya untuk tiap destinasi wisata.
+12. Membuat Arsitektur Model Collaborative Filtering
+  - Model yang digunakan adalah RecommenderNet, yaitu arsitektur berbasis embedding dan dot product:
+    - Layer embedding dibuat untuk representasi pengguna dan tempat wisata dalam ruang vektor berdimensi 50.
+    - Output dari model adalah skor prediksi kesukaan (dalam rentang 0–1), dihitung menggunakan dot product antara vektor embedding pengguna dan tempat.
 
-Tahapan-tahapan ini penting dilakukan untuk memastikan data dalam kondisi optimal sebelum digunakan dalam proses training model, baik untuk pendekatan Content-Based Filtering maupun Collaborative Filtering.
+13. Melatih Model
+  - Model dilatih menggunakan binary crossentropy sebagai fungsi loss, karena target sudah dinormalisasi ke skala 0–1.
+  - Optimizer yang digunakan adalah Adam, dengan metrik evaluasi berupa Root Mean Squared Error (RMSE).
+  - Pelatihan dilakukan selama 10 epoch dengan batch size 64 dan disertai validasi terhadap data test:
+![image](https://github.com/user-attachments/assets/a91487ef-585f-4b09-9a83-5503741805a4)
 
 
-## Modeling
-Tahapan ini membahas mengenai model sistem rekomendasi yang dikembangkan untuk membantu pengguna menemukan tempat wisata yang sesuai dengan preferensinya. Dalam proyek ini, dua pendekatan berbeda digunakan untuk memberikan Top-N Recommendation, yaitu:
+
+
+## Modelling dan Results
+Pada bagian ini dijelaskan sistem rekomendasi yang dikembangkan untuk membantu pengguna menemukan tempat wisata sesuai preferensinya. Dua pendekatan utama digunakan, yaitu Content-Based Filtering dan Collaborative Filtering, yang masing-masing memiliki mekanisme kerja dan keunggulan tersendiri.
 
 1. Content-Based Filtering
 
-Pendekatan pertama menggunakan Content-Based Filtering, yang merekomendasikan tempat wisata berdasarkan kemiripan konten dengan tempat yang pernah disukai atau dicari oleh pengguna.
-- Langkah-langkah:
-  - Fitur teks seperti Category, City, dan deskripsi lainnya dikombinasikan menjadi satu kolom combined_features.
-  - Dilakukan proses TF-IDF vectorization untuk mengubah teks menjadi representasi numerik.
-  - Cosine similarity digunakan untuk menghitung kemiripan antar tempat wisata.
-  - Output: sistem akan memberikan rekomendasi tempat yang mirip dengan tempat yang dimasukkan sebagai referensi.
+Content-Based Filtering adalah pendekatan yang merekomendasikan item (dalam hal ini tempat wisata) yang mirip dengan item yang telah disukai atau dikunjungi oleh pengguna sebelumnya, berdasarkan kemiripan konten.
+- Cara Kerja Sistem:
+  - Setiap tempat wisata direpresentasikan berdasarkan fitur-fitur tekstual seperti:
+    - Category: jenis wisata (alam, budaya, dll.)
+    - City: kota tempat wisata
+    - Description: deskripsi tempat wisata
+  - Fitur-fitur tersebut digabungkan ke dalam satu kolom combined_features.
+  - Representasi teks diubah menjadi vektor numerik menggunakan teknik TF-IDF (Term Frequency-Inverse Document Frequency).
+  - Kemiripan antar tempat wisata dihitung menggunakan cosine similarity antar vektor.
+  - Sistem kemudian mengurutkan dan merekomendasikan tempat-tempat wisata yang paling mirip dengan tempat referensi yang diberikan pengguna.
 
-- Output Rekomendasi:
+- Kelebihan Pendekatan:
+  - Tidak memerlukan data interaksi pengguna lain (cocok untuk cold-start user).
+  - Memungkinkan rekomendasi berbasis deskripsi kaya dari item.
+
+- Hasil Rekomendasi:
+Sistem berhasil memberikan daftar rekomendasi tempat wisata yang kontennya serupa dengan tempat input. Misalnya, jika pengguna menyukai tempat bertema alam di Yogyakarta, maka sistem akan merekomendasikan tempat alam lain di kota tersebut dengan konten serupa.
   
 ![image](https://github.com/user-attachments/assets/20567eea-4cd9-440d-b3be-05f70a2643a5)
 
-Pendekatan ini cocok ketika belum ada data rating pengguna, dan dapat berjalan baik hanya dengan informasi konten.
-
 2. Collaborative Filtering
 
-Pendekatan kedua menggunakan Collaborative Filtering berbasis model, di mana sistem belajar dari pola rating pengguna terhadap berbagai tempat wisata. Model yang digunakan dapat berupa deep learning atau matrix factorization.
-- Langkah-langkah:
-  - Data Preprocessing:
-    - Setiap User_Id dan Place_Id di-encode ke dalam indeks numerik agar dapat digunakan dalam model embedding.
-    - Data rating pengguna dinormalisasi ke rentang [0,1] karena model menggunakan fungsi aktivasi sigmoid pada output.
-      
-  - Model Arsitektur:
-    - Terdiri dari dua embedding layers masing-masing untuk pengguna dan tempat wisata.
-    - Representasi vektor dari pengguna dan tempat dikombinasikan menggunakan dot product.
-    - Output akhir diproses melalui fungsi sigmoid untuk mengestimasi rating sebagai probabilitas kesukaan.
-      
-  - Training:
-    - Data dipisah menjadi training dan testing (80:20).
-    - Model dilatih menggunakan binary crossentropy dan dioptimasi dengan Adam Optimizer.
-    - Performa dilihat dari metrik Root Mean Squared Error (RMSE) pada data training dan validasi.
+Collaborative Filtering bekerja dengan memanfaatkan pola interaksi dan penilaian antar pengguna terhadap tempat wisata, tanpa perlu mengetahui konten dari tempat tersebut. Pendekatan ini bekerja berdasarkan asumsi bahwa "pengguna yang menyukai tempat A juga cenderung menyukai tempat B".
+
+- Cara Kerja Sistem:
+  - Setiap pengguna (User_Id) dan tempat wisata (Place_Id) diubah menjadi indeks numerik, lalu dimasukkan ke dalam layer embedding.
+  - Model pembelajaran mendalam (deep learning) digunakan untuk mempelajari representasi vektor pengguna dan tempat wisata.
+  - Representasi ini dikombinasikan menggunakan dot product untuk memprediksi skor kesukaan.
+  - Output dari model adalah skor probabilistik (antara 0 dan 1) yang mewakili seberapa besar kemungkinan pengguna menyukai suatu tempat.
+
+- Arsitektur Model:
+  - Dua layer embedding: satu untuk pengguna dan satu untuk tempat wisata.
+  - Kombinasi antar vektor dilakukan dengan layer dot product.
+  - Aktivasi akhir menggunakan sigmoid agar output berada dalam rentang 0–1.
+  - Model dioptimasi menggunakan binary crossentropy loss dan Adam optimizer.
+  - Evaluasi dilakukan menggunakan metrik Root Mean Squared Error (RMSE) pada data training dan validasi.
+
+- Hasil Rekomendasi:
+Setelah model dilatih, sistem dapat merekomendasikan tempat wisata yang belum pernah dikunjungi oleh pengguna, fungsi recommend_places() digunakan untuk menghasilkan rekomendasi personalized bagi masing-masing pengguna.
+
+
  
 - Proses Training:
 
