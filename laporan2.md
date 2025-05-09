@@ -56,7 +56,7 @@ Dataset terdiri atas empat file utama, yaitu:
   - Tidak ditemukan duplikat.
     
 2. tourism_rating.csv:
-- Jumlah data 437 baris × 3 kolom. Dataset ini mencatat penilaian pengguna terhadap tempat wisata tertentu.
+- Jumlah data 10000 baris × 3 kolom. Dataset ini mencatat penilaian pengguna terhadap tempat wisata tertentu.
 - Variabel-variabel pada tourism_rating.csv adalah sebagai berikut:
   - User_Id: ID unik pengguna.
   - Place_Id: ID unik dari tempat wisata yang diberi rating.
@@ -178,18 +178,6 @@ Pada tahap ini dilakukan serangkaian proses untuk mempersiapkan data agar siap d
 11. Membagi Data ke dalam Train dan Test Set
   - Dataset dibagi ke dalam data pelatihan dan data pengujian dengan rasio 80:20 menggunakan train_test_split dari Scikit-learn.
 ![image](https://github.com/user-attachments/assets/1494479d-4bf9-46a6-9081-60cc33b34f39)
-
-12. Membuat Arsitektur Model Collaborative Filtering
-  - Model yang digunakan adalah RecommenderNet, yaitu arsitektur berbasis embedding dan dot product:
-    - Layer embedding dibuat untuk representasi pengguna dan tempat wisata dalam ruang vektor berdimensi 50.
-    - Output dari model adalah skor prediksi kesukaan (dalam rentang 0–1), dihitung menggunakan dot product antara vektor embedding pengguna dan tempat.
-
-13. Melatih Model
-  - Model dilatih menggunakan binary crossentropy sebagai fungsi loss, karena target sudah dinormalisasi ke skala 0–1.
-  - Optimizer yang digunakan adalah Adam, dengan metrik evaluasi berupa Root Mean Squared Error (RMSE).
-  - Pelatihan dilakukan selama 10 epoch dengan batch size 64 dan disertai validasi terhadap data test dengan hasil berikut:
-
-![image](https://github.com/user-attachments/assets/45672969-b09c-42c3-8af3-c7a79ff57546)
 
 
 ## Modelling dan Results
