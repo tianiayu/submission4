@@ -203,7 +203,8 @@ Content-Based Filtering adalah pendekatan yang merekomendasikan item (dalam hal 
 - Hasil Rekomendasi:
 Sistem berhasil memberikan daftar rekomendasi tempat wisata yang kontennya serupa dengan tempat input. Misalnya, jika pengguna menyukai tempat bertema alam di Yogyakarta, maka sistem akan merekomendasikan tempat alam lain di kota tersebut dengan konten serupa.
   
-![image](https://github.com/user-attachments/assets/20567eea-4cd9-440d-b3be-05f70a2643a5)
+![image](https://github.com/user-attachments/assets/e3a2aaa6-96b2-4048-af00-0365acbe32f4)
+
 
 2. Collaborative Filtering
 
@@ -225,8 +226,7 @@ Collaborative Filtering bekerja dengan memanfaatkan pola interaksi dan penilaian
 - Hasil Rekomendasi:
 Setelah model dilatih, sistem dapat merekomendasikan tempat wisata yang belum pernah dikunjungi oleh pengguna, fungsi recommend_places() digunakan untuk menghasilkan rekomendasi personalized bagi masing-masing pengguna.
 
-![image](https://github.com/user-attachments/assets/216dab9f-039b-4089-8215-6f83f515daeb)
-
+![image](https://github.com/user-attachments/assets/53a24e7c-90b2-4565-b304-c1673378a958)
 
 
 ## Evaluation
