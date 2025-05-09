@@ -31,9 +31,9 @@ Dalam era digital, pariwisata tidak lagi hanya mengandalkan brosur atau rekomend
 
     ### Solution Approach
     - Content-Based Filtering
-      Pendekatan ini merekomendasikan destinasi wisata berdasarkan kesamaan fitur antar tempat wisata yang pernah disukai oleh pengguna. Sistem akan menganalisis atribut tempat wisata seperti kategori (alam, budaya, hiburan), harga, lama waktu kunjungan, serta deskripsi tempat untuk menilai kemiripan antar destinasi.
+      Pendekatan ini cocok digunakan sebagai solusi awal dalam sistem rekomendasi, terutama saat pengguna belum memiliki histori interaksi (cold-start). Ini sangat relevan untuk membantu pengguna baru menemukan tempat wisata berdasarkan minat atau karakteristik tempat yang mereka eksplorasi pertama kali. Precision@5 yang cukup tinggi mendukung tujuan bisnis untuk memberikan pengalaman eksploratif yang menarik.
     - Collaborative Filtering
-      Collaborative Filtering merekomendasikan tempat wisata berdasarkan interaksi atau rating yang diberikan oleh pengguna lain dengan preferensi serupa. Model ini fokus pada hubungan antar pengguna dan tempat wisata yang mereka nilai.
+      Collaborative Filtering Memberikan hasil rekomendasi yang lebih personal dan akurat, sangat cocok untuk pengguna yang telah aktif menggunakan sistem. Dengan RMSE rendah, sistem dapat memperkirakan minat pengguna secara spesifik, meningkatkan engagement dan loyalitas pengguna, serta mendorong keputusan kunjungan yang lebih cepat dan tepat.
       
 
 ## Data Understanding
