@@ -187,10 +187,9 @@ Pada tahap ini dilakukan serangkaian proses untuk mempersiapkan data agar siap d
 13. Melatih Model
   - Model dilatih menggunakan binary crossentropy sebagai fungsi loss, karena target sudah dinormalisasi ke skala 0–1.
   - Optimizer yang digunakan adalah Adam, dengan metrik evaluasi berupa Root Mean Squared Error (RMSE).
-  - Pelatihan dilakukan selama 10 epoch dengan batch size 64 dan disertai validasi terhadap data test:
-![image](https://github.com/user-attachments/assets/a91487ef-585f-4b09-9a83-5503741805a4)
+  - Pelatihan dilakukan selama 10 epoch dengan batch size 64 dan disertai validasi terhadap data test dengan hasil berikut:
 
-
+![image](https://github.com/user-attachments/assets/45672969-b09c-42c3-8af3-c7a79ff57546)
 
 
 ## Modelling dan Results
@@ -238,14 +237,6 @@ Collaborative Filtering bekerja dengan memanfaatkan pola interaksi dan penilaian
 - Hasil Rekomendasi:
 Setelah model dilatih, sistem dapat merekomendasikan tempat wisata yang belum pernah dikunjungi oleh pengguna, fungsi recommend_places() digunakan untuk menghasilkan rekomendasi personalized bagi masing-masing pengguna.
 
-
- 
-- Proses Training:
-
-![image](https://github.com/user-attachments/assets/45672969-b09c-42c3-8af3-c7a79ff57546)
-
-
-- Output Rekomendasi:
 ![image](https://github.com/user-attachments/assets/216dab9f-039b-4089-8215-6f83f515daeb)
 
 
@@ -255,7 +246,7 @@ Evaluasi dilakukan untuk menilai seberapa baik sistem rekomendasi bekerja dalam 
 
 1. Evaluasi Model Content-Based Filtering
 
-Untuk model berbasis konten, tidak dilakukan evaluasi kuantitatif seperti RMSE karena model ini tidak memprediksi rating, melainkan menghitung kemiripan antar item. Cosine similarity digunakan untuk mengukur tingkat kemiripan antara dua vektor fitur tempat wisata. Nilainya berkisar antara 0 (tidak mirip) hingga 1 (sangat mirip).
+Cosine similarity digunakan untuk mengukur tingkat kemiripan antara dua vektor fitur tempat wisata. Nilainya berkisar antara 0 (tidak mirip) hingga 1 (sangat mirip).
 
 - Formula:
 
@@ -263,7 +254,25 @@ Untuk model berbasis konten, tidak dilakukan evaluasi kuantitatif seperti RMSE k
 
 Model ini dinilai baik apabila rekomendasi yang diberikan relevan secara tematik dengan tempat awal yang dipilih oleh pengguna. Evaluasi dilakukan secara kualitatif berdasarkan hasil rekomendasi yang terlihat konsisten, seperti:
     - Input: "Nol Kilometer Jl.Malioboro"
-    - Output: Tempat wisata dengan karakteristik mirip seperti pusat keramaian, sejarah, dan wisata belanja.
+    - Output: Tempat wisata dengan karakteristik mirip seperti pusat keramaian, sejarah, dan wisata belanja.Berikut adalah analisis dari hasil evaluasi dalam hal Precision@5, Recall@5, dan F1-Score@5:
+
+![image](https://github.com/user-attachments/assets/ed3e0267-61e1-4c2c-b9eb-86cdce4eb213)
+
+- Precision@5: 1.0000
+
+Ini berarti bahwa semua 5 tempat yang direkomendasikan oleh model adalah relevan atau sesuai dengan kebutuhan pengguna. Tidak ada tempat yang direkomendasikan yang salah.
+
+- Recall@5: 1.0000
+
+Ini menunjukkan bahwa model berhasil merekomendasikan semua tempat yang relevan (tempat yang seharusnya direkomendasikan) dalam daftar top-5. Semua tempat yang relevan berhasil ditemukan dalam rekomendasi.
+
+- F1-Score@5: 1.0000
+
+Dengan precision dan recall yang sempurna, F1-Score juga sempurna. Ini menunjukkan keseimbangan yang sangat baik antara jumlah rekomendasi yang benar dan jumlah tempat relevan yang berhasil ditemukan.
+
+- MAE: 0.3600
+
+MAE (Mean Absolute Error) menunjukkan rata-rata perbedaan absolut antara prediksi rating dan rating yang sebenarnya. Nilai 0.3600 menunjukkan bahwa perbedaan antara rating yang diprediksi dan rating yang sebenarnya tidak terlalu besar, meskipun ada sedikit perbedaan. Semakin rendah MAE, semakin baik model dalam memprediksi rating yang sesuai dengan preferensi pengguna.
 
 2. Evaluasi Model Collaborative Filtering (Neural Network)
 
